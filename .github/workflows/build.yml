@@ -1,4 +1,4 @@
-name: Build ASP.NET Framework
+name: Build ASP.NET Framework + Docker
 
 on:
   push:
@@ -6,11 +6,14 @@ on:
       - main
 
 jobs:
+
   build:
+
     runs-on: windows-latest
 
     steps:
-      - name: Checkout code
+
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup MSBuild
@@ -22,5 +25,8 @@ jobs:
       - name: Restore packages
         run: nuget restore AspNetFrameworkDockerCICD.sln
 
-      - name: Build solution
+      - name: Build project
         run: msbuild AspNetFrameworkDockerCICD.sln /p:Configuration=Release
+
+      - name: Build Docker image
+        run: docker build -t aspnetframeworkdockercicd .
