@@ -31,11 +31,12 @@ jobs:
           /p:Configuration=Release `
           /p:DeployOnBuild=true `
           /p:WebPublishMethod=FileSystem `
-          /p:PublishUrl="${{ github.workspace }}\published"
+          /p:PublishUrl=published `
+          /p:DeleteExistingFiles=True
 
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v3
         with:
           app-name: aspnet-wincontainer-rg-new
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: '${{ github.workspace }}\published'
+          package: 'published'
