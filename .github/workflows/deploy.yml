@@ -33,12 +33,12 @@ jobs:
           /p:WebPublishMethod=FileSystem `
           /p:PublishUrl=published
 
-      - name: List files after publish
-        run: dir /s
+      - name: Show published files
+        run: Get-ChildItem -Path . -Recurse
 
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v3
         with:
-          app-name: YOUR_WEBAPP_NAME
+          app-name: aspnet-wincontainer-rg-new
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: published
